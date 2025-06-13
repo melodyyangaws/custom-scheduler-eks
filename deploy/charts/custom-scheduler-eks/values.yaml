@@ -124,3 +124,33 @@ affinity:
         matchLabels:
           component: custom-scheduler-eks
       topologyKey: kubernetes.io/hostname
+
+# Monitoring configuration
+monitoring:
+  service:
+    # Annotations for the metrics service
+    annotations: {}
+    # Service type for metrics endpoint
+    type: ClusterIP
+    # Port for the metrics endpoint
+    port: 10259
+    # Target port for the metrics endpoint
+    targetPort: 10259
+  
+  serviceMonitor:
+    # Enable ServiceMonitor resource
+    enabled: true 
+    # Namespace where ServiceMonitor will be created
+    #namespace: kube-prometheus-stack
+    # Additional labels for the ServiceMonitor
+    labels: {}
+    # Additional annotations for the ServiceMonitor
+    annotations: {}
+    # Scrape interval
+    interval: 30s
+    # Path for metrics endpoint
+    path: /metrics
+    # Scheme for metrics endpoint
+    scheme: https
+    # Skip TLS verification
+    insecureSkipVerify: true

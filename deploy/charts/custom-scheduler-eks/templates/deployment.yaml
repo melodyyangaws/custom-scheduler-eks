@@ -4,9 +4,7 @@ metadata:
   name: {{ include "custom-scheduler-eks.fullname" . }}
   namespace: {{ .Values.nameSpace }}
   labels:
-    component: custom-scheduler-eks
-    chart: {{ .Chart.Name }}
-    release: {{ .Release.Name }}
+    {{- include "custom-scheduler-eks.labels" . | nindent 4 }}
 spec:
   {{- if .Values.leaderElection.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -15,9 +13,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      component: custom-scheduler-eks
-      chart: {{ .Chart.Name }}
-      release: {{ .Release.Name }}
+      {{- include "custom-scheduler-eks.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -25,9 +21,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        component: custom-scheduler-eks
-        chart: {{ .Chart.Name }}
-        release: {{ .Release.Name }}
+        {{- include "custom-scheduler-eks.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       affinity:
         {{- toYaml .Values.affinity | nindent 8 }}
