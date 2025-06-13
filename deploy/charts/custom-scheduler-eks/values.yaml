@@ -24,6 +24,7 @@ image:
     1.30: "v1.30.10-eks-1-30-latest"
     1.31: "v1.31.6-eks-1-31-latest"
     1.32: "v1.32.2-eks-1-32-latest"
+    1.33: "v1.33.1-eks-1-33-latest"
 
 imagePullSecrets: []
 nameOverride: ""
