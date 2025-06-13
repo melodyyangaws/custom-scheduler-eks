@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: custom-scheduler-eks
+  name: custom-scheduler-eks-metrics
+  namespace: kube-system
+spec:
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: metrics
+    port: 10259
+    protocol: TCP
+    targetPort: 10259
+  selector:
+    chart: custom-scheduler-eks
+    component: custom-scheduler-eks
+    release: custom-eks-scheduler
+  type: ClusterIP
