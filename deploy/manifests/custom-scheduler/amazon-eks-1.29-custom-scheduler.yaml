@@ -101,7 +101,6 @@ rules:
   - watch
 - apiGroups:
   - apps
-  - extensions
   resources:
   - replicasets
   verbs:
@@ -287,7 +286,7 @@ spec:
       containers:
       - command:
         - /usr/local/bin/kube-scheduler
-        - --bind-address=0.0.0.0
+        - --bind-address=127.0.0.1
         - --config=/etc/kubernetes/custom-k8s-scheduler/custom-k8s-scheduler-config.yaml
         - --v=5
         image: public.ecr.aws/eks-distro/kubernetes/kube-scheduler:v1.29.6-eks-1-29-18@sha256:0a02e1074342b078cfb6f48ac6f57b7641072d605491975441edc37395765e63
@@ -309,12 +308,12 @@ spec:
             cpu: '1'
             memory: 1Gi
           limits:
-            cpu: '1'
-            memory: 1Gi
+            cpu: '2'
+            memory: 2Gi
         securityContext:
           readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
-          runAsNonRoot: false
+          runAsNonRoot: true
           privileged: false
           capabilities:
             drop:

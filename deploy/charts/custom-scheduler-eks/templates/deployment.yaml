@@ -26,8 +26,10 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      {{- with .Values.affinity }}
       affinity:
-        {{- toYaml .Values.affinity | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -39,7 +41,7 @@ spec:
         - name: {{ .Chart.Name }}
           command:
           - /usr/local/bin/kube-scheduler
-          - --bind-address=0.0.0.0
+          - --bind-address=127.0.0.1
           - --config=/etc/kubernetes/custom-k8s-scheduler/custom-scheduler-eks-config.yaml
           - --v={{ .Values.logLevel }}
           securityContext:

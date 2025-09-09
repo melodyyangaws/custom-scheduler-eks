@@ -30,7 +30,7 @@ data:
       leaderElect: true
       resourceNamespace: {{ .Values.nameSpace }}
       resourceName: {{ .Values.schedulerName }}
-    {{ else }}
+    {{- else }}
     leaderElection:
       leaderElect: false
     {{- end }}
