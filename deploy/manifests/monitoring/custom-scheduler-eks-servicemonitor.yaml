@@ -10,8 +10,6 @@ spec:
     path: /metrics
     port: metrics
     scheme: https
-    tlsConfig:
-      insecureSkipVerify: true
   namespaceSelector:
     matchNames:
     - kube-system

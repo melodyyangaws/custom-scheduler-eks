@@ -21,7 +21,7 @@ spec:
     port: metrics
     scheme: {{ .Values.monitoring.serviceMonitor.scheme | default "https" }}
     tlsConfig:
-      insecureSkipVerify: {{ .Values.monitoring.serviceMonitor.insecureSkipVerify | default true }}
+      insecureSkipVerify: {{ .Values.monitoring.serviceMonitor.insecureSkipVerify | default false }}
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace }}

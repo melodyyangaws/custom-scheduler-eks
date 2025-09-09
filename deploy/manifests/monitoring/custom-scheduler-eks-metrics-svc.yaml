@@ -15,7 +15,6 @@ spec:
     protocol: TCP
     targetPort: 10259
   selector:
-    chart: custom-scheduler-eks
-    component: custom-scheduler-eks
-    release: custom-eks-scheduler
+    component: scheduler
+    tier: control-plane
   type: ClusterIP

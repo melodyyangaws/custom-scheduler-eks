@@ -26,7 +26,7 @@ spec:
       labels:
         App: od-amd
     spec:
-      #schedulerName: custom-scheduler-eks
+      schedulerName: custom-scheduler-eks
       terminationGracePeriodSeconds: 40
       containers:
       - name: nginx-app-memory
@@ -48,6 +48,5 @@ spec:
           httpGet:
             path: /
             port: 80
-        name: kube-second-scheduler
         ports:
         - containerPort: 80
