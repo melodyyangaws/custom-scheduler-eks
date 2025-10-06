@@ -123,7 +123,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
         matchLabels:
-          component: custom-scheduler-eks
+          app.kubernetes.io/name: custom-scheduler-eks
       topologyKey: kubernetes.io/hostname
 
 # Monitoring configuration
