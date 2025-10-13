@@ -57,17 +57,17 @@ securityContext:
   runAsNonRoot: true
 
 
-resources:
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  requests:
-    cpu: '1'
-    memory: 1Gi
-  limits:
-    cpu: '2'
-    memory: 2Gi
+  #requests:
+  #  cpu: '1'
+  #  memory: 1Gi
+  #limits:
+  #  cpu: '1'
+  #  memory: 1Gi
 livenessProbe:
   httpGet:
     path: /healthz
@@ -123,7 +123,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
         matchLabels:
-          component: custom-scheduler-eks
+          app.kubernetes.io/name: custom-scheduler-eks
       topologyKey: kubernetes.io/hostname
 
 # Monitoring configuration
@@ -137,10 +137,9 @@ monitoring:
     port: 10259
     # Target port for the metrics endpoint
     targetPort: 10259
-  
   serviceMonitor:
     # Enable ServiceMonitor resource
-    enabled: true 
+    enabled: true
     # Namespace where ServiceMonitor will be created
     #namespace: kube-prometheus-stack
     # Additional labels for the ServiceMonitor
