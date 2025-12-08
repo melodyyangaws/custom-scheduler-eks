@@ -25,19 +25,19 @@ git clone https://github.com/aws-samples/custom-scheduler-eks
 cd custom-scheduler-eks
 ```
 
-**Amazon EKS 1.24**
+##### Amazon EKS 1.24
 
 ```shell
 kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.24-custom-scheduler.yaml
 ```
 
-**Amazon EKS 1.29**
+##### Amazon EKS 1.29
 
 ```shell
 kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.29-custom-scheduler.yaml
 ```
 
-**Other Amazon EKS versions**
+##### Other Amazon EKS versions
 
 * replace the related image URL(https://gallery.ecr.aws/eks-distro/kubernetes/kube-scheduler)
 
@@ -106,7 +106,7 @@ kubectl apply -f deploy/deployments/nginx-deployment.yaml
 
 ![EKS Node Viewer](assets/images/eks-node-viewer-after-deployment.png "EKS Node Viewer")
 
-## Tips for scheduler image
+## Tips for selecting scheduler image
 
 The difference between Amazon EKS 1.24 and Amazon EKS 1.29 are image version and apiversion. We do not recommend build the kube-scheduler by yourself, we can leverage the eks-distro kube-scheduler image.
 
