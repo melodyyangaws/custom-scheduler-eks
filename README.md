@@ -9,17 +9,55 @@ In this repo, we provide an example of how to run custom scheduler with Amazon E
 
 ## Installation
 
+This project support installation either by Manifests or helm.
+
 ### Prequisites
 
 * Amazon EKS 1.24+
 * kubectl
 
-## Clone the repo
+#### Manifests
+
+##### Clone the repo
 
 ```shell
 git clone https://github.com/aws-samples/custom-scheduler-eks
 cd custom-scheduler-eks
 ```
+
+**Amazon EKS 1.24**
+
+```shell
+kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.24-custom-scheduler.yaml
+```
+
+**Amazon EKS 1.29**
+
+```shell
+kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.29-custom-scheduler.yaml
+```
+
+**Other Amazon EKS versions**
+
+* replace the related image URL(https://gallery.ecr.aws/eks-distro/kubernetes/kube-scheduler)
+
+#### Helm
+
+Add the Helm repository and install the chart:
+
+```shell
+helm repo add custom-eks-scheduler https://aws-samples.github.io/custom-scheduler-eks
+helm repo update
+helm install custom-eks-scheduler custom-eks-scheduler/custom-scheduler-eks \
+  --set eksVersion="1.29" \
+  --set schedulerName="second-k8s-scheduler" \
+  -n kube-system
+```
+
+##### Available Values
+
+Please refer to the [values](https://github.com/aws-samples/custom-scheduler-eks/blob/main/deploy/charts/custom-scheduler-eks/values.yaml) for more info.
+
 
 ### Install eks-node-viewer
 
@@ -45,56 +83,6 @@ go install github.com/awslabs/eks-node-viewer/cmd/eks-node-viewer@latest
 
 **eks-node-viewer**：https://github.com/awslabs/eks-node-viewer
 
-### Install eks-node-viewer
-
-The difference between Amazon EKS 1.24 and Amazon EKS 1.29 are image version and apiversion.
-We do not recommend build the kube-scheduler by yourself, we can leverage the eks-distro kube-scheduler image.
-
-Amazon EKS 1.29 Image: public.ecr.aws/eks-distro/kubernetes/kube-scheduler:v1.29.6-eks-1-29-18
-Amazon EKS 1.24 Image: public.ecr.aws/eks-distro/kubernetes/kube-scheduler:v1.24.16-eks-1-24-25
-
-The KubeSchedulerConfiguration API version is stable(v1) in Kubernetes 1.25, for those cluster prior to 1.25, should use kubescheduler.config.k8s.io/v1beta2.
-
-#### Manifests
-
-**Amazon EKS 1.24**
-
-```shell
-kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.24-custom-scheduler.yaml
-```
-
-**Amazon EKS 1.29**
-
-```shell
-kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.29-custom-scheduler.yaml
-```
-
-**Other Amazon EKS versions**
-
-* replace the related image URL(https://gallery.ecr.aws/eks-distro/kubernetes/kube-scheduler)
-
-#### Helm
-
-Add the Helm repository and install the chart:
-
-```shell
-# Add the Helm repository
-helm repo add custom-eks-scheduler https://aws-samples.github.io/custom-scheduler-eks
-
-# Update the repository
-helm repo update
-
-# Install the chart
-helm install custom-eks-scheduler custom-eks-scheduler/custom-scheduler-eks \
-  --set eksVersion="1.29" \
-  --set schedulerName="second-k8s-scheduler" \
-  -n kube-system
-```
-
-##### Available Values
-
-Please refer to the [values](https://github.com/aws-samples/custom-scheduler-eks/blob/main/deploy/charts/custom-scheduler-eks/values.yaml) for more info.
-
 
 ## Testing
 
@@ -117,6 +105,14 @@ kubectl apply -f deploy/deployments/nginx-deployment.yaml
 ### EKS node usage after the deployments
 
 ![EKS Node Viewer](assets/images/eks-node-viewer-after-deployment.png "EKS Node Viewer")
+
+## Tips for scheduler image
+
+The difference between Amazon EKS 1.24 and Amazon EKS 1.29 are image version and apiversion. We do not recommend build the kube-scheduler by yourself, we can leverage the eks-distro kube-scheduler image.
+
+Amazon EKS 1.29 Image: public.ecr.aws/eks-distro/kubernetes/kube-scheduler:v1.29.6-eks-1-29-18 Amazon EKS 1.24 Image: public.ecr.aws/eks-distro/kubernetes/kube-scheduler:v1.24.16-eks-1-24-25
+
+The KubeSchedulerConfiguration API version is stable(v1) in Kubernetes 1.25, for those cluster prior to 1.25, should use kubescheduler.config.k8s.io/v1beta2.
 
 
 ## Security
