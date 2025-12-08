@@ -46,19 +46,13 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext:
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
   runAsNonRoot: true
-  privileged: false
-  capabilities:
-    drop:
-      - ALL
 
 securityContext:
-  runAsUser: 1000
-  readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
   privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
   capabilities:
     drop:
       - ALL
