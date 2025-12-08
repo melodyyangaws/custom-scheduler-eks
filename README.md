@@ -75,16 +75,25 @@ kubectl apply -f deploy/manifests/custom-scheduler/amazon-eks-1.29-custom-schedu
 
 #### Helm
 
+Add the Helm repository and install the chart:
+
+```shell
+# Add the Helm repository
+helm repo add custom-eks-scheduler https://aws-samples.github.io/custom-scheduler-eks
+
+# Update the repository
+helm repo update
+
+# Install the chart
+helm install custom-eks-scheduler custom-eks-scheduler/custom-scheduler-eks \
+  --set eksVersion="1.29" \
+  --set schedulerName="second-k8s-scheduler" \
+  -n kube-system
+```
+
 ##### Available Values
 
 Please refer to the [values](https://github.com/aws-samples/custom-scheduler-eks/blob/main/deploy/charts/custom-scheduler-eks/values.yaml) for more info.
-
-##### Deploy with Helm
-
-```shell
-cd custom-scheduler-eks/deploy
-helm install custom-eks-scheduler charts/custom-scheduler-eks --set eksVersion=1.29 --set schedulerName=second-k8s-scheduler -n kube-system
-```
 
 
 ## Testing
