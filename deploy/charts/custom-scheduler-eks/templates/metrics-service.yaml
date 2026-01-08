@@ -11,9 +11,6 @@ metadata:
     {{- toYaml .Values.monitoring.service.annotations | nindent 4 }}
   {{- end }}
 spec:
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
   - name: metrics
     port: {{ .Values.monitoring.service.port | default 10259 }}
