@@ -1,4 +1,4 @@
-{{- if .Values.monitoring.serviceMonitor.enabled }}
+{{- if and .Values.monitoring.enabled .Values.monitoring.serviceMonitor.enabled -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -28,4 +28,4 @@ spec:
   selector:
     matchLabels:
       {{- include "custom-scheduler-eks.labels" . | nindent 6 }}
-{{- end }}
+{{- end -}}

@@ -130,6 +130,7 @@ affinity:
 
 # Monitoring configuration
 monitoring:
+  enabled: false
   service:
     # Annotations for the metrics service
     annotations: {}
@@ -141,7 +142,7 @@ monitoring:
     targetPort: 10259
   serviceMonitor:
     # Enable ServiceMonitor resource
-    enabled: true
+    enabled: false
     # Namespace where ServiceMonitor will be created
     #namespace: kube-prometheus-stack
     # Additional labels for the ServiceMonitor

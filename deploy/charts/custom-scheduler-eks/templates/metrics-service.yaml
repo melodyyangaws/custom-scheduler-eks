@@ -1,3 +1,4 @@
+{{- if .Values.monitoring.enabled | default false -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -19,3 +20,4 @@ spec:
   selector:
     {{- include "custom-scheduler-eks.selectorLabels" . | nindent 4 }}
   type: {{ .Values.monitoring.service.type | default "ClusterIP" }}
+{{- end -}}
